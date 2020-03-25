@@ -5,7 +5,7 @@ Assistant is a delightful multi file rename tool.
 
 #### Info:
 
-```bash
+```
 Usage: assistant COMMAND=ARG...
 
 Options:

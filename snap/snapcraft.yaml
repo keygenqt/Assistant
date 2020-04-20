@@ -1,0 +1,53 @@
+name: assistant-kg
+base: core18
+version: '0.0.2'
+summary: Assistant is a delightful files mod tool.
+description: |
+  Usage: assistant COMMAND=ARG...
+
+    Assistant is a delightful files mod tool.
+
+  Options:
+    --dir               Path to folder with files.
+
+    --template          Template for name {text} - name file, {index} - set up index
+    --search            Pattern regex for search file in folder. If empty - all.
+    --zeros             Size count zeros in index. If empty - disable. If 0 - auto.
+    --sort              Sort files: {natural} - by natural, {mod} - last modification
+
+    --extension-up      Uppercase extension in folder
+    --extension-lower   Lowercase extension in folder
+
+    --version           Show the version and exit
+    --help              Show help
+
+grade: stable
+confinement: strict
+
+parts:
+  assistant:
+
+    plugin: gradle
+    gradle-output-dir: build/libs
+    gradle-options: [jar]
+    source: https://github.com/keygenqt/assistant.git
+    source-type: git
+    source-tag: master
+    build-environment:
+      - JAVA_HOME: /usr/lib/jvm/java-11-openjdk-amd64
+      - PATH: $JAVA_HOME/jre/bin:$PATH
+
+    build-packages:
+      - openjdk-11-jdk
+      - openjdk-11-jre
+
+    stage-packages:
+      - openjdk-11-jre
+
+apps:
+  assistant:
+    command: java -jar $SNAP/jar/assistant.jar
+    environment:
+      LC_ALL: C.UTF-8
+    plugs:
+      - home

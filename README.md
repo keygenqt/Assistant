@@ -10,7 +10,7 @@ Assistant is a delightful files mod tool.
 #### Info:
 
 ```
-Usage: assistant COMMAND=ARG...
+Usage: kg-assistant COMMAND=ARG...
 
 Assistant is a delightful files mod tool.
 

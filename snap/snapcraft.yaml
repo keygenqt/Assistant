@@ -5,7 +5,7 @@ summary: Assistant is a delightful files mod tool.
 description: |
   Usage: assistant COMMAND=ARG...
 
-    Assistant is a delightful files mod tool.
+  Assistant is a delightful files mod tool.
 
   Options:
     --dir               Path to folder with files.
@@ -45,7 +45,7 @@ parts:
       - openjdk-11-jre
 
 apps:
-  kgassistant:
+  kg-assistant:
     command: java -jar $SNAP/jar/assistant.jar
     environment:
       LC_ALL: C.UTF-8

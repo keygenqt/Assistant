@@ -16,44 +16,80 @@
 
 package com.keygenqt.assistant
 
+import com.keygenqt.assistant.components.*
+import com.keygenqt.assistant.components.work.*
+import com.keygenqt.assistant.utils.*
+import java.io.*
+
+val PARAMS = hashMapOf(
+    ARGS_FOLDER_PATH to File("").absolutePath,
+    ARGS_TEMPLATE to "{text}-{index}",
+    ARGS_SEARCH to ".*",
+    ARGS_ZEROS to "auto",
+    ARGS_SORT to TYPE_SORT_DEFAULT,
+    ARGS_EXTENSION_UP to "false",
+    ARGS_EXTENSION_LOWER to "false"
+)
+
 fun main(args: Array<String>) {
-    if (args.isNotEmpty()) {
 
-        var dir = ""
-        var template = "{text}-{index}"
-        var search = ".*"
-        var zeros = "auto"
-        var sort = SORT_DEFAULT
-
-        for (value in args) {
-            when (val key = value.substring(0, if (value.contains("=")) value.indexOf("=") else value.length)) {
-                ARGS_FOLDER_PATH -> {
-                    dir = value.replace("$key=", "")
-                }
-                ARGS_TEMPLATE -> {
-                    template = value.replace("$key=", "")
-                }
-                ARGS_SEARCH -> {
-                    search = value.replace("$key=", "")
-                }
-                ARGS_ZEROS -> {
-                    zeros = value.replace("$key=", "")
-                }
-                ARGS_SORT -> {
-                    sort = value.replace("$key=", "")
-                }
-                ARGS_VERSION -> {
-                    Info.showVersion()
-                }
-                ARGS_HELP -> {
-                    Info.showHelp()
+    for (item in args) {
+        when (item) {
+            ARGS_EXTENSION_UP -> PARAMS[ARGS_EXTENSION_UP] = "true"
+            ARGS_EXTENSION_LOWER -> PARAMS[ARGS_EXTENSION_LOWER] = "true"
+            ARGS_VERSION -> Info.showVersion()
+            ARGS_HELP -> Info.showHelp()
+            else -> {
+                when {
+                    item.contains("^$ARGS_FOLDER_PATH\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_FOLDER_PATH] = item.replace("$ARGS_FOLDER_PATH=", "")
+                        Checker.folder(PARAMS[ARGS_FOLDER_PATH] ?: "")
+                    }
+                    item.contains("^$ARGS_TEMPLATE\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_TEMPLATE] = item.replace("$ARGS_TEMPLATE=", "")
+                        Checker.template(PARAMS[ARGS_TEMPLATE] ?: "")
+                    }
+                    item.contains("^$ARGS_SEARCH\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_SEARCH] = item.replace("$ARGS_SEARCH=", "")
+                        Checker.regex(PARAMS[ARGS_SEARCH] ?: "")
+                    }
+                    item.contains("^$ARGS_ZEROS\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_ZEROS] = item.replace("$ARGS_ZEROS=", "")
+                        Checker.zeros(PARAMS[ARGS_ZEROS] ?: "")
+                    }
+                    item.contains("^$ARGS_SORT\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_SORT] = item.replace("$ARGS_SORT=", "")
+                        Checker.sort(PARAMS[ARGS_SORT] ?: "")
+                    }
                 }
             }
         }
-
-        Work(dir, template, search, zeros, sort).run()
-
-    } else {
-        Info.showHelp()
     }
+
+    when {
+        "${PARAMS[ARGS_EXTENSION_UP]}" == "true" -> {
+            Work("${PARAMS[ARGS_FOLDER_PATH]}")
+                .extensionUp(
+                    "${PARAMS[ARGS_SEARCH]}",
+                    "${PARAMS[ARGS_SORT]}"
+                )
+        }
+        "${PARAMS[ARGS_EXTENSION_LOWER]}" == "true" -> {
+            Work("${PARAMS[ARGS_FOLDER_PATH]}")
+                .extensionLower(
+                    "${PARAMS[ARGS_SEARCH]}",
+                    "${PARAMS[ARGS_SORT]}"
+                )
+        }
+        "${PARAMS[ARGS_FOLDER_PATH]}".isNotEmpty() -> {
+            Work("${PARAMS[ARGS_FOLDER_PATH]}")
+                .rename(
+                    "${PARAMS[ARGS_TEMPLATE]}",
+                    "${PARAMS[ARGS_SEARCH]}",
+                    "${PARAMS[ARGS_ZEROS]}",
+                    "${PARAMS[ARGS_SORT]}"
+                )
+        }
+    }
+
 }

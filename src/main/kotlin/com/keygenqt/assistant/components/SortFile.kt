@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package com.keygenqt.assistant
+package com.keygenqt.assistant.components
 
-import java.io.File
+import java.io.*
 
-class MyFile(path: String) : File(path), Comparable<File> {
+class SortFile(path: String) : File(path), Comparable<File> {
 
     fun move(newName: String): Boolean {
         return renameTo(File(absolutePath.replace(name, newName)))

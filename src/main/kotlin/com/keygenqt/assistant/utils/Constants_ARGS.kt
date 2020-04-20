@@ -14,9 +14,7 @@
  * limitations under the License.
  */
 
-package com.keygenqt.assistant
-
-const val VERSION = "0.0.1"
+package com.keygenqt.assistant.utils
 
 const val ARGS_FOLDER_PATH = "--dir"
 const val ARGS_TEMPLATE = "--template"
@@ -27,7 +25,3 @@ const val ARGS_EXTENSION_UP = "--extension-up"
 const val ARGS_EXTENSION_LOWER = "--extension-lower"
 const val ARGS_VERSION = "--version"
 const val ARGS_HELP = "--help"
-
-const val SORT_DEFAULT = "default"
-const val SORT_NATURAL = "natural"
-const val SORT_MOD = "mod"

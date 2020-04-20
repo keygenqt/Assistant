@@ -17,7 +17,7 @@
 package com.keygenqt.assistant.utils
 
 const val STRING_FULL_HELP = """
-Usage: assistant COMMAND=ARG...
+Usage: kg-assistant COMMAND=ARG...
 
 Assistant is a delightful files mod tool.
 

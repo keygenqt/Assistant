@@ -3,7 +3,7 @@ base: core18
 version: '0.0.2'
 summary: Assistant is a delightful files mod tool.
 description: |
-  Usage: assistant COMMAND=ARG...
+  Usage: kg-assistant COMMAND=ARG...
 
   Assistant is a delightful files mod tool.
 

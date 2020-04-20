@@ -9,6 +9,15 @@ Assistant is a delightful files mod tool.
 
 #### Info:
 
+* rename files in folder with index
+* sort for index - standard by name, natural by name, last modification file
+* search in folder files regex
+* size zeros in index
+* uppercase extension in folder
+* lowercase extension in folder
+
+#### Usage:
+
 ```
 Usage: kg-assistant COMMAND=ARG...
 

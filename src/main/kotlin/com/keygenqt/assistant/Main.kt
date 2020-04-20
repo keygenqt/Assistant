@@ -33,6 +33,10 @@ val PARAMS = hashMapOf(
 
 fun main(args: Array<String>) {
 
+    if (args.isEmpty()) {
+        Info.showHelp()
+    }
+
     for (item in args) {
         when (item) {
             ARGS_EXTENSION_UP -> PARAMS[ARGS_EXTENSION_UP] = "true"
@@ -92,4 +96,5 @@ fun main(args: Array<String>) {
         }
     }
 
+    exit()
 }

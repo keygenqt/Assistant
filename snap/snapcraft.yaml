@@ -1,4 +1,4 @@
-name: assistant-kg
+name: kg-assistant
 base: core18
 version: '0.0.2'
 summary: Assistant is a delightful files mod tool.
@@ -25,7 +25,7 @@ grade: stable
 confinement: strict
 
 parts:
-  assistant:
+  kgassistant:
 
     plugin: gradle
     gradle-output-dir: build/libs
@@ -45,7 +45,7 @@ parts:
       - openjdk-11-jre
 
 apps:
-  assistant:
+  kgassistant:
     command: java -jar $SNAP/jar/assistant.jar
     environment:
       LC_ALL: C.UTF-8

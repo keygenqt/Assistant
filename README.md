@@ -1,6 +1,8 @@
 Assistant
 ===================
 
+![picture](https://raw.githubusercontent.com/keygenqt/assistant/master/data/icon_preview.png)
+
 Assistant is a delightful files mod tool.
 
 #### Info:

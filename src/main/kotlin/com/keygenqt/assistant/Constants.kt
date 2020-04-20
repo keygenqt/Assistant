@@ -23,6 +23,8 @@ const val ARGS_TEMPLATE = "--template"
 const val ARGS_SEARCH = "--search"
 const val ARGS_ZEROS = "--zeros"
 const val ARGS_SORT = "--sort"
+const val ARGS_EXTENSION_UP = "--extension-up"
+const val ARGS_EXTENSION_LOWER = "--extension-lower"
 const val ARGS_VERSION = "--version"
 const val ARGS_HELP = "--help"
 

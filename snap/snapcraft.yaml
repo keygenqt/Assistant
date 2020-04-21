@@ -1,6 +1,6 @@
 name: kg-assistant
 base: core18
-version: '0.0.2'
+version: '0.0.3'
 summary: Assistant is a delightful files mod tool.
 description: |
   Usage: kg-assistant COMMAND=ARG...

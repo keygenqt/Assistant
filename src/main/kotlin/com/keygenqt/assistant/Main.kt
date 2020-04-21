@@ -46,23 +46,23 @@ fun main(args: Array<String>) {
             else -> {
                 when {
                     item.contains("^$ARGS_FOLDER_PATH\\=.+".toRegex()) -> {
-                        PARAMS[ARGS_FOLDER_PATH] = item.replace("$ARGS_FOLDER_PATH=", "")
+                        PARAMS[ARGS_FOLDER_PATH] = item.replace("$ARGS_FOLDER_PATH=", "").replace("'", "")
                         Checker.folder(PARAMS[ARGS_FOLDER_PATH] ?: "")
                     }
                     item.contains("^$ARGS_TEMPLATE\\=.+".toRegex()) -> {
-                        PARAMS[ARGS_TEMPLATE] = item.replace("$ARGS_TEMPLATE=", "")
+                        PARAMS[ARGS_TEMPLATE] = item.replace("$ARGS_TEMPLATE=", "").replace("'", "")
                         Checker.template(PARAMS[ARGS_TEMPLATE] ?: "")
                     }
                     item.contains("^$ARGS_SEARCH\\=.+".toRegex()) -> {
-                        PARAMS[ARGS_SEARCH] = item.replace("$ARGS_SEARCH=", "")
+                        PARAMS[ARGS_SEARCH] = item.replace("$ARGS_SEARCH=", "").replace("'", "")
                         Checker.regex(PARAMS[ARGS_SEARCH] ?: "")
                     }
                     item.contains("^$ARGS_ZEROS\\=.+".toRegex()) -> {
-                        PARAMS[ARGS_ZEROS] = item.replace("$ARGS_ZEROS=", "")
+                        PARAMS[ARGS_ZEROS] = item.replace("$ARGS_ZEROS=", "").replace("'", "")
                         Checker.zeros(PARAMS[ARGS_ZEROS] ?: "")
                     }
                     item.contains("^$ARGS_SORT\\=.+".toRegex()) -> {
-                        PARAMS[ARGS_SORT] = item.replace("$ARGS_SORT=", "")
+                        PARAMS[ARGS_SORT] = item.replace("$ARGS_SORT=", "").replace("'", "")
                         Checker.sort(PARAMS[ARGS_SORT] ?: "")
                     }
                 }

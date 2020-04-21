@@ -68,3 +68,7 @@ const val STRING_ERROR_SORT = """
 Problem with option --sort (default/natural/mod)
 """
 
+const val STRING_NOT_FOUND_FILES = """
+Files for mod not found.
+"""
+

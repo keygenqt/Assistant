@@ -70,6 +70,11 @@ class Info {
             exit()
         }
 
+        fun notFoundFiles() {
+            println(STRING_NOT_FOUND_FILES)
+            exit()
+        }
+
         fun showSuccessSave() {
             println(STRING_DONE)
             exit()

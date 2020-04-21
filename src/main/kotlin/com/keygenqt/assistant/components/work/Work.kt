@@ -60,6 +60,7 @@ class Work(private val dir: String) {
     }
 
     private fun getFiles(dir: String, search: String, sort: String): Array<SortFile> {
+
         val files = File(dir).walk().filter { it.isFile }.filter { it.name.matches(search.toRegex()) }
             .map { SortFile(it.absolutePath) }.toList().toTypedArray()
 
@@ -70,6 +71,11 @@ class Work(private val dir: String) {
                 Arrays.sort(files) { f1, f2 -> f1.name.compareTo(f2.name, true) }
             }
         }
+
+        if (files.isEmpty()) {
+            Info.notFoundFiles();
+        }
+
         return files
     }
 

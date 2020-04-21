@@ -37,3 +37,8 @@ Options:
     --version           Show the version and exit
     --help              Show help
 ```
+
+GUI: AssistantQt
+===================
+
+[![Get it from the Snap Store](https://snapcraft.io/static/images/badges/en/snap-store-black.svg)](https://snapcraft.io/kg-assistantQt)

@@ -9,12 +9,16 @@ Assistant is a delightful files mod tool.
 
 #### Info:
 
-* rename files in folder with index
-* sort for index - standard by name, natural by name, last modification file
-* search in folder files regex
-* size zeros in index
-* uppercase extension in folder
-* lowercase extension in folder
+  * rename files in folder with index
+  * sort for index - standard by name, natural by name, last modification file
+  * search in folder files regex
+  * exclude in folder files regex by content
+  * exclude lines file
+  * size zeros in index
+  * uppercase extension in folder
+  * lowercase extension in folder
+  * lowercase extension in folder
+  * statistic
 
 #### Usage:
 
@@ -25,15 +29,23 @@ Assistant is a delightful files mod tool.
 
 Options:
     --dir               Path to folder with files.
-    
-    --template          Template for name {text} - name file, {index} - set up index
     --search            Pattern regex for search file in folder. If empty - all.
-    --zeros             Size count zeros in index. If empty - disable. If 0 - auto.
     --sort              Sort files: {natural} - by natural, {mod} - last modification
-    
+    --exclude           Pattern regex for exclude file by content
+    --exclude-lines     Exclude lines content
+
+  rename    
+    --template          Template for name {text} - name file, {index} - set up index
+    --zeros             Size count zeros in index. If empty - disable. If 0 - auto.
+
+  extension
     --extension-up      Uppercase extension in folder
     --extension-lower   Lowercase extension in folder
+
+  statistic
+    --statistic   Lowercase extension in folder
     
+  other
     --version           Show the version and exit
     --help              Show help
 ```

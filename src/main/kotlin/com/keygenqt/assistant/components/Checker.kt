@@ -53,6 +53,16 @@ class Checker {
             }
         }
 
+        fun int(value: String) {
+            value.toIntOrNull()?.let {
+                if (it > 500) {
+                    Info.showInfoExit("Max value - 500")
+                }
+            } ?: run {
+                Info.showInfoExit("Value must be a number")
+            }
+        }
+
         fun zeros(value: String) {
             if (value.isEmpty()) {
                 Info.showErrorZeros()

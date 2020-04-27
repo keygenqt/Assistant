@@ -20,14 +20,22 @@ import com.keygenqt.assistant.components.*
 import com.keygenqt.assistant.utils.*
 import java.io.*
 import java.util.*
+import java.util.regex.*
 
-class Work(private val dir: String) {
+class Work(private val dir: String, private val search: String, private val sort: String, private val exclude: String,
+    private val lines: Int) {
 
     private val ex: WorkExtension = WorkExtension()
     private val re: WorkRename = WorkRename()
+    private val stat: WorkStatistic = WorkStatistic()
 
-    fun extensionUp(search: String, sort: String) {
-        showInfo(ex.getPreviewUp(getFiles(dir, search, sort))) {
+    fun statistic() {
+        Info.showInfo(stat.getPreview(getFiles(dir, search, sort, exclude, lines)))
+        exit()
+    }
+
+    fun extensionUp() {
+        showInfo(ex.getPreviewUp(getFiles(dir, search, sort, exclude, lines))) {
             val errors = ex.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
@@ -37,8 +45,8 @@ class Work(private val dir: String) {
         }
     }
 
-    fun extensionLower(search: String, sort: String) {
-        showInfo(ex.getPreviewLower(getFiles(dir, search, sort))) {
+    fun extensionLower() {
+        showInfo(ex.getPreviewLower(getFiles(dir, search, sort, exclude, lines))) {
             val errors = ex.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
@@ -48,8 +56,8 @@ class Work(private val dir: String) {
         }
     }
 
-    fun rename(template: String, search: String, zeros: String, sort: String) {
-        showInfo(re.getPreview(getFiles(dir, search, sort), template, zeros)) {
+    fun rename(template: String, zeros: String) {
+        showInfo(re.getPreview(getFiles(dir, search, sort, exclude, lines), template, zeros)) {
             val errors = re.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
@@ -59,9 +67,31 @@ class Work(private val dir: String) {
         }
     }
 
-    private fun getFiles(dir: String, search: String, sort: String): Array<SortFile> {
-
-        val files = File(dir).walk().filter { it.isFile }.filter { it.name.matches(search.toRegex()) }
+    private fun getFiles(dir: String, search: String, sort: String, exclude: String, readLines: Int): Array<SortFile> {
+        val files = File(dir).walk()
+            .filter { it.isFile }
+            .filter { it.name.matches(search.toRegex()) }
+            .filter {
+                var filter = true
+                if (exclude.isNotEmpty()) {
+                    val reader = BufferedReader(FileReader(it))
+                    var line = reader.readLine()
+                    var index = 1
+                    while (line != null) {
+                        if (index > readLines) {
+                            break
+                        }
+                        if (Pattern.compile(exclude).matcher(line).find()) {
+                            filter = false
+                            break
+                        }
+                        index++
+                        line = reader.readLine()
+                    }
+                    reader.close()
+                }
+                filter
+            }
             .map { SortFile(it.absolutePath) }.toList().toTypedArray()
 
         when (sort) {

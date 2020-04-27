@@ -23,12 +23,18 @@ import java.io.*
 
 val PARAMS = hashMapOf(
     ARGS_FOLDER_PATH to File("").absolutePath,
-    ARGS_TEMPLATE to "{text}-{index}",
     ARGS_SEARCH to ".*",
-    ARGS_ZEROS to "auto",
     ARGS_SORT to TYPE_SORT_DEFAULT,
+    ARGS_EXCLUDE to "",
+    ARGS_EXCLUDE_LINES to "1",
+
+    ARGS_TEMPLATE to "{text}-{index}",
+    ARGS_ZEROS to "auto",
+
     ARGS_EXTENSION_UP to "false",
-    ARGS_EXTENSION_LOWER to "false"
+    ARGS_EXTENSION_LOWER to "false",
+
+    ARGS_STATISTIC to "false"
 )
 
 fun main(args: Array<String>) {
@@ -41,6 +47,7 @@ fun main(args: Array<String>) {
         when (item) {
             ARGS_EXTENSION_UP -> PARAMS[ARGS_EXTENSION_UP] = "true"
             ARGS_EXTENSION_LOWER -> PARAMS[ARGS_EXTENSION_LOWER] = "true"
+            ARGS_STATISTIC -> PARAMS[ARGS_STATISTIC] = "true"
             ARGS_VERSION -> Info.showVersion()
             ARGS_HELP -> Info.showHelp()
             else -> {
@@ -57,6 +64,14 @@ fun main(args: Array<String>) {
                         PARAMS[ARGS_SEARCH] = item.replace("$ARGS_SEARCH=", "")
                         Checker.regex(PARAMS[ARGS_SEARCH] ?: "")
                     }
+                    item.contains("^$ARGS_EXCLUDE\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_EXCLUDE] = item.replace("$ARGS_EXCLUDE=", "")
+                        Checker.regex(PARAMS[ARGS_EXCLUDE] ?: "")
+                    }
+                    item.contains("^$ARGS_EXCLUDE_LINES\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_EXCLUDE_LINES] = item.replace("$ARGS_EXCLUDE_LINES=", "")
+                        Checker.int(PARAMS[ARGS_EXCLUDE_LINES] ?: "")
+                    }
                     item.contains("^$ARGS_ZEROS\\=.+".toRegex()) -> {
                         PARAMS[ARGS_ZEROS] = item.replace("$ARGS_ZEROS=", "")
                         Checker.zeros(PARAMS[ARGS_ZEROS] ?: "")
@@ -71,28 +86,44 @@ fun main(args: Array<String>) {
     }
 
     when {
+        "${PARAMS[ARGS_STATISTIC]}" != "false" -> {
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).statistic()
+        }
         "${PARAMS[ARGS_EXTENSION_UP]}" == "true" -> {
-            Work("${PARAMS[ARGS_FOLDER_PATH]}")
-                .extensionUp(
-                    "${PARAMS[ARGS_SEARCH]}",
-                    "${PARAMS[ARGS_SORT]}"
-                )
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).extensionUp()
         }
         "${PARAMS[ARGS_EXTENSION_LOWER]}" == "true" -> {
-            Work("${PARAMS[ARGS_FOLDER_PATH]}")
-                .extensionLower(
-                    "${PARAMS[ARGS_SEARCH]}",
-                    "${PARAMS[ARGS_SORT]}"
-                )
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).extensionLower()
         }
         "${PARAMS[ARGS_FOLDER_PATH]}".isNotEmpty() -> {
-            Work("${PARAMS[ARGS_FOLDER_PATH]}")
-                .rename(
-                    "${PARAMS[ARGS_TEMPLATE]}",
-                    "${PARAMS[ARGS_SEARCH]}",
-                    "${PARAMS[ARGS_ZEROS]}",
-                    "${PARAMS[ARGS_SORT]}"
-                )
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).rename(
+                "${PARAMS[ARGS_TEMPLATE]}",
+                "${PARAMS[ARGS_ZEROS]}"
+            )
         }
     }
 

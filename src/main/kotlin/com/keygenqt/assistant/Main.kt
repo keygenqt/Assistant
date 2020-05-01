@@ -37,7 +37,9 @@ val PARAMS = hashMapOf(
     ARGS_STATISTIC to "false",
 
     ARGS_LINES to "false",
-    ARGS_LINES_SEARCH to "false"
+    ARGS_LINES_SEARCH to "false",
+
+    ARGS_SIZE to "false"
 )
 
 fun main(args: Array<String>) {
@@ -48,6 +50,7 @@ fun main(args: Array<String>) {
 
     for (item in args) {
         when (item) {
+            ARGS_SIZE -> PARAMS[ARGS_SIZE] = "true"
             ARGS_LINES -> PARAMS[ARGS_LINES] = "true"
             ARGS_STATISTIC -> PARAMS[ARGS_STATISTIC] = "true"
             ARGS_EXTENSION_UP -> PARAMS[ARGS_EXTENSION_UP] = "true"
@@ -105,6 +108,15 @@ fun main(args: Array<String>) {
                 "${PARAMS[ARGS_EXCLUDE]}",
                 "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
             ).countLines("${PARAMS[ARGS_LINES_SEARCH]}")
+        }
+        "${PARAMS[ARGS_SIZE]}" != "false" -> {
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).size()
         }
         "${PARAMS[ARGS_STATISTIC]}" != "false" -> {
             Work(

@@ -51,6 +51,7 @@ Options:
     --lines-search      Pattern regex for search lines
     
   other
+    --size              Get size files
     --version           Show the version and exit
     --help              Show help
 ```

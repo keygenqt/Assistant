@@ -29,6 +29,12 @@ class Work(private val dir: String, private val search: String, private val sort
     private val wRe: WorkRename = WorkRename()
     private val wStat: WorkStatistic = WorkStatistic()
     private val wLines: WorkLines = WorkLines()
+    private val wSize: WorkSize = WorkSize()
+
+    fun size() {
+        Info.showInfo(wSize.getPreview(getFiles(dir, search, sort, exclude, lines)))
+        exit()
+    }
 
     fun countLines(lineRegex: String) {
         Info.showInfo(wLines.getPreview(getFiles(dir, search, sort, exclude, lines), lineRegex))

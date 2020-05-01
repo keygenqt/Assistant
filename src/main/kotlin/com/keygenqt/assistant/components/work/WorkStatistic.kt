@@ -17,10 +17,10 @@
 package com.keygenqt.assistant.components.work
 
 import com.keygenqt.assistant.components.*
+import com.keygenqt.assistant.components.Helper.Companion.getNaturalSizeSI
 import java.io.*
 import java.text.*
 import java.util.*
-import kotlin.math.*
 
 class WorkStatistic() {
 
@@ -84,8 +84,8 @@ class WorkStatistic() {
             count lines:        $lines
             count extensions:   ${extension.size}
             
-            max size:           ${String.format("%-20s(%s)", getNaturalSize(maxSize), maxSizeName)}
-            min size:           ${String.format("%-20s(%s)", getNaturalSize(minSize), minSizeName)}
+            max size:           ${String.format("%-20s(%s)", getNaturalSizeSI(maxSize), maxSizeName)}
+            min size:           ${String.format("%-20s(%s)", getNaturalSizeSI(minSize), minSizeName)}
             
             max lines:          ${String.format("%-20s(%s)", max, maxName)}
             min lines:          ${String.format("%-20s(%s)", min, minName)}
@@ -93,22 +93,5 @@ class WorkStatistic() {
             modified last:      ${SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date(newest))} ($newestName)
             modified oldest:    ${SimpleDateFormat("dd.MM.yyyy HH:mm:ss").format(Date(older))} ($olderName)
         """.trimIndent()
-    }
-
-    private fun getNaturalSize(size: Long): String {
-        val absB = if (size == Long.MIN_VALUE) Long.MAX_VALUE else abs(size)
-        if (absB < 1024) {
-            return "$size B"
-        }
-        var value = absB
-        val ci: CharacterIterator = StringCharacterIterator("KMGTPE")
-        var i = 40
-        while (i >= 0 && absB > 0xfffccccccccccccL shr i) {
-            value = value shr 10
-            ci.next()
-            i -= 10
-        }
-        value *= java.lang.Long.signum(size).toLong()
-        return String.format("%.1f %ciB", value / 1024.0, ci.current())
     }
 }

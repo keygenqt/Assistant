@@ -13,6 +13,8 @@ description: |
   * lowercase extension in folder
   * lowercase extension in folder
   * statistic
+  * find lines by regex, counting
+  * size files
 
 grade: stable
 confinement: strict

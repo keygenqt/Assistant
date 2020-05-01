@@ -20,6 +20,7 @@ Assistant is a delightful files mod tool.
   * lowercase extension in folder
   * statistic
   * find lines by regex, counting
+  * size files
 
 #### Usage:
 

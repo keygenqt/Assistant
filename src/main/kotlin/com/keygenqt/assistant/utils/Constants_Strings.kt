@@ -23,15 +23,27 @@ Assistant is a delightful files mod tool.
 
 Options:
     --dir               Path to folder with files.
-    
-    --template          Template for name {text} - name file, {index} - set up index
     --search            Pattern regex for search file in folder. If empty - all.
-    --zeros             Size count zeros in index. If empty - disable. If 0 - auto.
     --sort              Sort files: {natural} - by natural, {mod} - last modification
-    
+    --exclude           Pattern regex for exclude file by content
+    --exclude-lines     Exclude lines content
+
+  rename    
+    --template          Template for name {text} - name file, {index} - set up index
+    --zeros             Size count zeros in index. If empty - disable. If 0 - auto.
+
+  extension
     --extension-up      Uppercase extension in folder
     --extension-lower   Lowercase extension in folder
+
+  statistic
+    --statistic   Lowercase extension in folder
+
+  lines
+    --lines             Find lines in dir and counting
+    --lines-search      Pattern regex for search lines
     
+  other
     --version           Show the version and exit
     --help              Show help
 """

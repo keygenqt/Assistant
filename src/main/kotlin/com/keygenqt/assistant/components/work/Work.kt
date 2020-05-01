@@ -25,18 +25,24 @@ import java.util.regex.*
 class Work(private val dir: String, private val search: String, private val sort: String, private val exclude: String,
     private val lines: Int) {
 
-    private val ex: WorkExtension = WorkExtension()
-    private val re: WorkRename = WorkRename()
-    private val stat: WorkStatistic = WorkStatistic()
+    private val wEx: WorkExtension = WorkExtension()
+    private val wRe: WorkRename = WorkRename()
+    private val wStat: WorkStatistic = WorkStatistic()
+    private val wLines: WorkLines = WorkLines()
+
+    fun countLines(lineRegex: String) {
+        Info.showInfo(wLines.getPreview(getFiles(dir, search, sort, exclude, lines), lineRegex))
+        exit()
+    }
 
     fun statistic() {
-        Info.showInfo(stat.getPreview(getFiles(dir, search, sort, exclude, lines)))
+        Info.showInfo(wStat.getPreview(getFiles(dir, search, sort, exclude, lines)))
         exit()
     }
 
     fun extensionUp() {
-        showInfo(ex.getPreviewUp(getFiles(dir, search, sort, exclude, lines))) {
-            val errors = ex.update()
+        showInfo(wEx.getPreviewUp(getFiles(dir, search, sort, exclude, lines))) {
+            val errors = wEx.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
             } else {
@@ -46,8 +52,8 @@ class Work(private val dir: String, private val search: String, private val sort
     }
 
     fun extensionLower() {
-        showInfo(ex.getPreviewLower(getFiles(dir, search, sort, exclude, lines))) {
-            val errors = ex.update()
+        showInfo(wEx.getPreviewLower(getFiles(dir, search, sort, exclude, lines))) {
+            val errors = wEx.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
             } else {
@@ -57,8 +63,8 @@ class Work(private val dir: String, private val search: String, private val sort
     }
 
     fun rename(template: String, zeros: String) {
-        showInfo(re.getPreview(getFiles(dir, search, sort, exclude, lines), template, zeros)) {
-            val errors = re.update()
+        showInfo(wRe.getPreview(getFiles(dir, search, sort, exclude, lines), template, zeros)) {
+            val errors = wRe.update()
             if (errors.isNotEmpty()) {
                 Info.showErrorSave(errors)
             } else {

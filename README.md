@@ -19,6 +19,7 @@ Assistant is a delightful files mod tool.
   * lowercase extension in folder
   * lowercase extension in folder
   * statistic
+  * find lines by regex, counting
 
 #### Usage:
 
@@ -44,6 +45,10 @@ Options:
 
   statistic
     --statistic   Lowercase extension in folder
+
+  lines
+    --lines             Find lines in dir and counting
+    --lines-search      Pattern regex for search lines
     
   other
     --version           Show the version and exit

@@ -34,7 +34,10 @@ val PARAMS = hashMapOf(
     ARGS_EXTENSION_UP to "false",
     ARGS_EXTENSION_LOWER to "false",
 
-    ARGS_STATISTIC to "false"
+    ARGS_STATISTIC to "false",
+
+    ARGS_LINES to "false",
+    ARGS_LINES_SEARCH to "false"
 )
 
 fun main(args: Array<String>) {
@@ -45,13 +48,18 @@ fun main(args: Array<String>) {
 
     for (item in args) {
         when (item) {
+            ARGS_LINES -> PARAMS[ARGS_LINES] = "true"
+            ARGS_STATISTIC -> PARAMS[ARGS_STATISTIC] = "true"
             ARGS_EXTENSION_UP -> PARAMS[ARGS_EXTENSION_UP] = "true"
             ARGS_EXTENSION_LOWER -> PARAMS[ARGS_EXTENSION_LOWER] = "true"
-            ARGS_STATISTIC -> PARAMS[ARGS_STATISTIC] = "true"
             ARGS_VERSION -> Info.showVersion()
             ARGS_HELP -> Info.showHelp()
             else -> {
                 when {
+                    item.contains("^$ARGS_LINES_SEARCH\\=.+".toRegex()) -> {
+                        PARAMS[ARGS_LINES_SEARCH] = item.replace("$ARGS_LINES_SEARCH=", "")
+                        Checker.regex(PARAMS[ARGS_LINES_SEARCH] ?: "")
+                    }
                     item.contains("^$ARGS_FOLDER_PATH\\=.+".toRegex()) -> {
                         PARAMS[ARGS_FOLDER_PATH] = item.replace("$ARGS_FOLDER_PATH=", "")
                         Checker.folder(PARAMS[ARGS_FOLDER_PATH] ?: "")
@@ -86,6 +94,18 @@ fun main(args: Array<String>) {
     }
 
     when {
+        "${PARAMS[ARGS_LINES]}" != "false" -> {
+            if ("${PARAMS[ARGS_LINES_SEARCH]}" == "false") {
+                Info.showInfoExit("$ARGS_LINES_SEARCH required!")
+            }
+            Work(
+                "${PARAMS[ARGS_FOLDER_PATH]}",
+                "${PARAMS[ARGS_SEARCH]}",
+                "${PARAMS[ARGS_SORT]}",
+                "${PARAMS[ARGS_EXCLUDE]}",
+                "${PARAMS[ARGS_EXCLUDE_LINES]}".toInt()
+            ).countLines("${PARAMS[ARGS_LINES_SEARCH]}")
+        }
         "${PARAMS[ARGS_STATISTIC]}" != "false" -> {
             Work(
                 "${PARAMS[ARGS_FOLDER_PATH]}",

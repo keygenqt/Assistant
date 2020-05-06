@@ -82,6 +82,6 @@ Problem with option --sort (default/natural/mod)
 """
 
 const val STRING_NOT_FOUND_FILES = """
-Files for mod not found.
+Files not found.
 """
 

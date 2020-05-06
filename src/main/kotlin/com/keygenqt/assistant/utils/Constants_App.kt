@@ -18,7 +18,7 @@ package com.keygenqt.assistant.utils
 
 import kotlin.system.*
 
-const val VERSION = "0.0.6"
+const val VERSION = "0.0.7"
 
 fun exit() {
     exitProcess(0)

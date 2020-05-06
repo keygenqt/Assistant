@@ -29,7 +29,7 @@ class WorkLines {
             val reader = BufferedReader(FileReader(file))
             var index = 1
             var line = reader.readLine()
-            while (reader.readLine() !== null) {
+            while (line !== null) {
                 if (line.matches(lineRegex.toRegex())) {
                     if (!lines.containsKey(file)) {
                         lines[file] = arrayListOf()

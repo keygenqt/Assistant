@@ -9,18 +9,15 @@ Assistant is a delightful files mod tool.
 
 #### Info:
 
-  * rename files in folder with index
-  * sort for index - standard by name, natural by name, last modification file
-  * search in folder files regex
-  * exclude in folder files regex by content
-  * exclude lines file
-  * size zeros in index
-  * uppercase extension in folder
-  * lowercase extension in folder
-  * lowercase extension in folder
-  * statistic
-  * find lines by regex, counting
-  * size files
+* search file by name (regex)
+* exclude file by content (regex)
+* sort files - standard by name, natural by name, last modification file
+* rename files in folder with index
+* size zeros in index
+* uppercase extension in folder
+* lowercase extension in folder
+* statistic - show about files info (count lines, max/min size, max/min lines, etc)
+* lines - counting lines by search regex
 
 #### Usage:
 

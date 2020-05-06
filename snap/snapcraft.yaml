@@ -1,6 +1,6 @@
 name: kg-assistant
 base: core18
-version: '0.0.5'
+version: '0.0.6'
 summary: Assistant is a delightful files mod tool.
 description: |
   * rename files in folder with index

@@ -65,7 +65,7 @@ Options:
 ![picture](data/screenshot-197.png)
 
 ```
-./statistic.sh --dir=/home/keygenqt/_CORE --search=".*\.kt"
+./statistic.sh --dir=/home/user/my/path --search=".*\.kt"
 ```
 
 ![picture](data/screenshot-198.png)

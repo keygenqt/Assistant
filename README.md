@@ -1,7 +1,7 @@
 Assistant
 ===================
 
-![picture](https://raw.githubusercontent.com/keygenqt/assistant/master/data/icon_preview.png)
+![picture](data/icon_preview.png)
 
 Assistant is a delightful files mod tool.
 
@@ -53,6 +53,22 @@ Options:
     --version           Show the version and exit
     --help              Show help
 ```
+
+#### Example statistic:
+
+[Base script](../master/server/statistic.sh)
+
+```
+./statistic.sh -d=/home/user/my/path -s=".*\.java"
+```
+
+![picture](data/screenshot-197.png)
+
+```
+./statistic.sh --dir=/home/keygenqt/_CORE --search=".*\.kt"
+```
+
+![picture](data/screenshot-198.png)
 
 GUI: AssistantQt
 ===================

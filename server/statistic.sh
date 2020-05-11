@@ -57,15 +57,16 @@ files=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g")
 # get count lines
 lines=$(echo "$st" | sed -n 2p | sed -e "s/\s//g" | sed -e "s/countlines\://g")
 
-#copy dir for revert
+# copy dir for revert
 cp -r "$DIR" "${DIR}_"
 
-#open dir
+# open dir
 cd "${DIR}_" || exit
 
-#get last tag
+# get last tag
 tag=$(git tag | sed -n 1p)
 
+# tag not found
 if [ -z "$tag" ]; then
   echo -e "${RED}Tags not found${CLEAR}\n"
   echo -e "${RED}Only HEAD statistic${CLEAR}"
@@ -74,7 +75,7 @@ if [ -z "$tag" ]; then
   exit 0
 fi
 
-#git revert to tag
+# git revert to tag
 git reset --hard "$tag" --quiet
 
 # get statistic tag

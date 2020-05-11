@@ -56,7 +56,7 @@ Options:
 
 #### Example statistic:
 
-[Base script](../master/server/statistic.sh)
+[Statistic example script](../master/server/statistic.sh)
 
 ```
 ./statistic.sh -d=/home/user/my/path -s=".*\.java"

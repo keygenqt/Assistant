@@ -11,6 +11,10 @@ for i in "$@"; do
     DIR="${i#*=}"
     shift
     ;;
+  -dg=* | --dir-git=*)
+    DIR_GIT="${i#*=}"
+    shift
+    ;;
   -s=* | --search=*)
     SEARCH="${i#*=}"
     shift
@@ -48,6 +52,11 @@ if [ -z "$EXCLUDE" ]; then
   EXCLUDE="^\/\/.*"
 fi
 
+# set default argument
+if [ -z "$DIR_GIT" ]; then
+  DIR_GIT="$DIR"
+fi
+
 # get statistic now
 st=$(kg-assistant --dir="$DIR" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
 
@@ -58,28 +67,32 @@ files=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g")
 lines=$(echo "$st" | sed -n 2p | sed -e "s/\s//g" | sed -e "s/countlines\://g")
 
 # copy dir for revert
-cp -r "$DIR" "${DIR}_"
+cp -r "$DIR_GIT" "${DIR_GIT}_"
 
 # open dir
-cd "${DIR}_" || exit
+cd "${DIR_GIT}_" || exit
 
 # get last tag
 tag=$(git tag | sed -n 1p)
 
+# show HEAD statistic
+echo -e "${RED}HEAD statistic${CLEAR}"
+echo "files: $files"
+echo "code lines: $lines"
+
 # tag not found
 if [ -z "$tag" ]; then
-  echo -e "${RED}Tags not found${CLEAR}\n"
-  echo -e "${RED}Only HEAD statistic${CLEAR}"
-  echo "files: $files"
-  echo "code lines: $lines"
   exit 0
 fi
 
 # git revert to tag
 git reset --hard "$tag" --quiet
 
+# get temp dir tag
+tempDir=${DIR//${DIR_GIT}/${DIR_GIT}_}
+
 # get statistic tag
-st=$(kg-assistant --dir="${DIR}_" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
+st=$(kg-assistant --dir="$tempDir" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
 
 # get count files
 filesTag=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g")
@@ -88,18 +101,13 @@ filesTag=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g
 linesTag=$(echo "$st" | sed -n 2p | sed -e "s/\s//g" | sed -e "s/countlines\://g")
 
 # remove temp dir
-rm -rf "${DIR}_"
+rm -rf "${DIR_GIT}_"
 
 # files count
-filesCount=$(($files - $filesTag))
+filesCount=$((files - filesTag))
 
 # lines count
-linesCount=$(($lines - $linesTag))
-
-# show HEAD statistic
-echo -e "${RED}HEAD statistic${CLEAR}"
-echo "files: $files"
-echo "code lines: $lines"
+linesCount=$((lines - linesTag))
 
 echo ""
 

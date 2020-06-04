@@ -73,7 +73,7 @@ cp -r "$DIR_GIT" "${DIR_GIT}_"
 cd "${DIR_GIT}_" || exit
 
 # get last tag
-tag=$(git tag | sed -n 1p)
+tag=$(git tag --sort=committerdate | tail -1)
 
 # show HEAD statistic
 echo -e "${RED}HEAD statistic${CLEAR}"

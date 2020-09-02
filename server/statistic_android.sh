@@ -60,7 +60,7 @@ fi
 # example rm temp dir
 TEMP_DIR="$DIR/app/src/main/java/_generate"
 
-if [ -z "$TEMP_DIR" ]; then
+if [ -d "$TEMP_DIR" ]; then
   rm -rf "$TEMP_DIR"
 fi
 

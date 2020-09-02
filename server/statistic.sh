@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#  ./statistic.sh -dg=/home/keygenqt/project -d=/home/keygenqt/project/app/src/main/java/me -s=".*\.kt"
+
 # add color red
 CLEAR='\033[0m'
 RED='\033[0;31m'
@@ -7,6 +9,10 @@ RED='\033[0;31m'
 # load arguments
 for i in "$@"; do
   case $i in
+  -t=* | --tag=*)
+    TAG="${i#*=}"
+    shift
+    ;;
   -d=* | --dir=*)
     DIR="${i#*=}"
     shift
@@ -57,6 +63,12 @@ if [ -z "$DIR_GIT" ]; then
   DIR_GIT="$DIR"
 fi
 
+#check .git dir
+if [ ! -d "$DIR_GIT/.git" ]; then
+  echo -e "${RED}$DIR_GIT/.git not found.${CLEAR}"
+  exit 1
+fi
+
 # get statistic now
 st=$(kg-assistant --dir="$DIR" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
 
@@ -72,8 +84,10 @@ cp -r "$DIR_GIT" "${DIR_GIT}_"
 # open dir
 cd "${DIR_GIT}_" || exit
 
-# get last tag
-tag=$(git tag --sort=committerdate | tail -1)
+if [ "$TAG" == "" ]; then
+  # get last tag
+  TAG=$(git tag --sort=committerdate | tail -1)
+fi
 
 # show HEAD statistic
 echo -e "${RED}HEAD statistic${CLEAR}"
@@ -81,12 +95,12 @@ echo "files: $files"
 echo "code lines: $lines"
 
 # tag not found
-if [ -z "$tag" ]; then
+if [ -z "$TAG" ]; then
   exit 0
 fi
 
 # git revert to tag
-git reset --hard "$tag" --quiet
+git reset --hard "$TAG" --quiet
 
 # get temp dir tag
 tempDir=${DIR//${DIR_GIT}/${DIR_GIT}_}
@@ -112,7 +126,7 @@ linesCount=$((lines - linesTag))
 echo ""
 
 # show TAG statistic
-echo -e "${RED}TAG statistic ($tag)${CLEAR}"
+echo -e "${RED}TAG statistic ($TAG)${CLEAR}"
 echo "files: $filesTag"
 echo "code lines: $linesTag"
 

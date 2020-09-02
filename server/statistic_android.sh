@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# ./statistic_android.sh -d=/home/keygenqt/project -t=1.0.0
+
 #NOW (HEAD)
 #kotlin files: 000 code lines: 00000
 #java   files: 000 code lines: 00000

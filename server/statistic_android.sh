@@ -3,24 +3,25 @@
 # ./statistic_android.sh -d=/home/keygenqt/project -t=1.0.0
 
 #NOW (HEAD)
-#kotlin files: 000 code lines: 00000
-#java   files: 000 code lines: 00000
-#xml    files: 000 code lines: 00000
+#kotlin files: 222, code lines: 00000
+#java   files: 222, code lines: 00000
+#xml    files: 222, code lines: 00000
 #-------
-#ALL    files: 000 code lines: 00000
+#ALL    files: 666, code lines: 00000
 #
 #OLD (was before 1.0.0)
-#kotlin files: 000 code lines: 00000
-#java   files: 000 code lines: 00000
-#xml    files: 000 code lines: 00000
+#kotlin files: 333, code lines: 00000
+#java   files: 333, code lines: 00000
+#xml    files: 333, code lines: 00000
 #-------
-#ALL    files: 300 code lines: 00000
+#ALL    files: 999, code lines: 00000
 #
 #2.8.0 -> HEAD (last tag: 1.0.0)
-#kotlin +000 lines, +000 files
-#java   -000 lines, -000 files
-#xml    -000 lines, -000 files
-
+#kotlin files: +33, code lines: +00000
+#java   files: -33, code lines: -00000
+#xml    files: -33, code lines: -00000
+#-------
+#ALL    files: -66, code lines: -00000
 
 # add color red
 CLEAR='\033[0m'
@@ -49,6 +50,11 @@ done
 # check required argument
 if [ -z "$DIR" ]; then
   echo -e "${RED}Dir (-d=*|--dir=*) required argument${CLEAR}"
+  exit 1
+fi
+
+if [ ! -d "$DIR" ]; then
+  echo -e "${RED}Dir not exist${CLEAR}"
   exit 1
 fi
 
@@ -118,24 +124,24 @@ countFilesAll=$(("$countingFilesXml" + "$countingFilesJava" + "$countingFilesKt"
 countLinesAll=$(("$countingLinesXml" + "$countingLinesJava" + "$countingLinesKt"))
 
 echo -e "${RED}NOW (HEAD)${CLEAR}"
-echo -e "${GREEN}kotlin${CLEAR} files:$newStatKt"
-echo -e "${GREEN}java  ${CLEAR} files:$newStatJava"
-echo -e "${GREEN}xml   ${CLEAR} files:$newStatXml"
+echo -e "${GREEN}kotlin${CLEAR} files:$newStatKt" | sed -E "s/ code/, code/"
+echo -e "${GREEN}java  ${CLEAR} files:$newStatJava" | sed -E "s/ code/, code/"
+echo -e "${GREEN}xml   ${CLEAR} files:$newStatXml" | sed -E "s/ code/, code/"
 echo "-------"
-echo -e "${BLUE}ALL   ${CLEAR} files: $newFilesAll code lines: $newLinesAll"
+echo -e "${BLUE}ALL   ${CLEAR} files: $newFilesAll, code lines: $newLinesAll"
 
 echo ""
 echo -e "${RED}OLD (was before $TAG)${CLEAR}"
-echo -e "${GREEN}kotlin${CLEAR} files:$oldStatKt"
-echo -e "${GREEN}java  ${CLEAR} files:$oldStatJava"
-echo -e "${GREEN}xml   ${CLEAR} files:$oldStatXml"
+echo -e "${GREEN}kotlin${CLEAR} files:$oldStatKt" | sed -E "s/ code/, code/"
+echo -e "${GREEN}java  ${CLEAR} files:$oldStatJava" | sed -E "s/ code/, code/"
+echo -e "${GREEN}xml   ${CLEAR} files:$oldStatXml" | sed -E "s/ code/, code/"
 echo "-------"
-echo -e "${BLUE}ALL   ${CLEAR} files: $oldFilesAll code lines: $oldLinesAll"
+echo -e "${BLUE}ALL   ${CLEAR} files: $oldFilesAll, code lines: $oldLinesAll"
 
 echo ""
 echo -e "${RED}$TAG -> HEAD${CLEAR} (last tag: $LAST_TAG)"
-echo -e "${GREEN}kotlin${CLEAR} $countingFilesKt files, $countingLinesKt lines"
-echo -e "${GREEN}java  ${CLEAR} $countingFilesJava files, $countingLinesJava lines"
-echo -e "${GREEN}xml   ${CLEAR} $countingFilesXml files, $countingLinesXml lines"
+echo -e "${GREEN}kotlin${CLEAR} files: $countingFilesKt, code lines: $countingLinesKt"
+echo -e "${GREEN}java  ${CLEAR} files: $countingFilesJava, code lines: $countingLinesJava"
+echo -e "${GREEN}xml   ${CLEAR} files: $countingFilesXml, code lines: $countingLinesXml"
 echo "-------"
-echo -e "${BLUE}ALL   ${CLEAR} $countFilesAll files, $countLinesAll, lines"
+echo -e "${BLUE}ALL   ${CLEAR} files: $countFilesAll, code lines: $countLinesAll"

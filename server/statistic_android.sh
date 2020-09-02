@@ -112,6 +112,9 @@ oldFilesAll=$(("$oldFilesKt" + "$oldFilesJava" + "$oldFilesXml"))
 newLinesAll=$(("$newLinesKt" + "$newLinesJava" + "$newLinesXml"))
 oldLinesAll=$(("$oldLinesKt" + "$oldLinesJava" + "$oldLinesXml"))
 
+countFilesAll=$(("$countingFilesXml" + "$countingFilesJava" + "$countingFilesKt"))
+countLinesAll=$(("$countingLinesXml" + "$countingLinesJava" + "$countingLinesKt"))
+
 echo -e "${RED}NOW (HEAD)${CLEAR}"
 echo -e "${GREEN}kotlin${CLEAR} files:$newStatKt"
 echo -e "${GREEN}java  ${CLEAR} files:$newStatJava"
@@ -132,3 +135,5 @@ echo -e "${RED}$TAG -> HEAD${CLEAR} (last tag: $LAST_TAG)"
 echo -e "${GREEN}kotlin${CLEAR} $countingFilesKt files, $countingLinesKt lines"
 echo -e "${GREEN}java  ${CLEAR} $countingFilesJava files, $countingLinesJava lines"
 echo -e "${GREEN}xml   ${CLEAR} $countingFilesXml files, $countingLinesXml lines"
+echo "-------"
+echo -e "${BLUE}ALL   ${CLEAR} $countFilesAll files, $countLinesAll, lines"

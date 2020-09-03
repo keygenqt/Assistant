@@ -70,7 +70,7 @@ if [ ! -d "$DIR_GIT/.git" ]; then
 fi
 
 # get statistic now
-st=$(kg-assistant --dir="$DIR" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
+st=$(/snap/bin/kg-assistant --dir="$DIR" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
 
 # get count files
 files=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g")
@@ -106,7 +106,7 @@ git reset --hard "$TAG" --quiet
 tempDir=${DIR//${DIR_GIT}/${DIR_GIT}_}
 
 # get statistic tag
-st=$(kg-assistant --dir="$tempDir" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
+st=$(/snap/bin/kg-assistant --dir="$tempDir" --statistic --search="$SEARCH" --exclude="$EXCLUDE" --exclude-lines=1)
 
 # get count files
 filesTag=$(echo "$st" | sed -n 1p | sed -e "s/\s//g" | sed -e "s/countfiles\://g")

@@ -59,7 +59,8 @@ if [ ! -d "$DIR" ]; then
 fi
 
 # get last tag if empty
-LAST_TAG=$(cd "${DIR}" && git tag --sort=committerdate | tail -1)
+# LAST_TAG=$(cd "${DIR}" && git tag --sort=committerdate | tail -1)
+LAST_TAG=$(cd "${DIR}" && git describe --tags | sed 's/-/\n/g' | head -n 1)
 
 if [ "$TAG" == "" ]; then
   TAG="$LAST_TAG"

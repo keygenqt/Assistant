@@ -86,7 +86,7 @@ cd "${DIR_GIT}_" || exit
 
 if [ "$TAG" == "" ]; then
   # get last tag
-  TAG=$(git tag --sort=committerdate | tail -1)
+  TAG=$(git tag -l | sort -V | tail -1)
 fi
 
 # show HEAD statistic
